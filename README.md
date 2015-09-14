@@ -68,7 +68,9 @@ addN n = foldl (>>>) return (replicate n addGet) 0
 runReader :: i -> It i a -> a
 runReader (Pure v) = v
 runReader x (Get k) = runReader x (k x)
+```
 В отличии от mtl Reader-а, It i a может трактоваться различно, например, каждый запрос может давать новое значение, как если бы происходило чтение из потока:
+```Haskell
 feedAll :: [ i ] -> It i a -> a
 feedAll _ (Pure v) = v
 feedAll [] = error "end of stream"
